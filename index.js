@@ -1,117 +1,132 @@
-function Gameboard (){
-    const board = [];
+const player = (name, mark)=> {
+    return {name, mark};
+}
+
+
+const gameboard = (function() {
+    //array to check status of game
+    const board = [" ", " ", " ", " ", " ", " ", " ", " ", " " ];
+
+    const getBoard = (board) => { return board};
+    //creating the game board
+    const main = document.getElementById('main');
+
+
+    const gameContainer = document.createElement('div');
+    gameContainer.setAttribute('id', 'gameboard-container');
    
-    var container = document.getElementById("gameboard-container");
-    
-    var createBoard = () => {
 
-        const gameBoardTableElement = document.createElement('table');
-        for (let i = 0; i < 3; i++) {
-            const row = document.createElement("tr");
+    for (let i = 0; i < 9; i++) {
+        let index = i;
+        // console.log(index);
+        const  cell = document.createElement('div');
+        cell.classList.add('square');
+        gameContainer.appendChild(cell);
+        cell.setAttribute('id', index);
+        // console.log(cell);
+       
+        
+        cell.addEventListener('click', function(e){
+            var logic = gameLogic;
+            var currentPlayer = logic.getCurrentPlayer();
             
-            for (let j = 0; j < 3; j++) {
-                const cell = document.createElement("td");
-                cell.classList.add('square');
-                cell.dataset.row = i;
-                cell.dataset.col = j;
-                
-                row.appendChild(cell);
-                
-            }
-
-            gameBoardTableElement.appendChild(row);
             
-        }
-
-            container.appendChild(gameBoardTableElement);
-    }
-
-    var setMarker = (mark) => {
-        container.addEventListener('click', function(e){
-            col = parseInt(e.target.dataset.col);
-            row = parseInt(e.target.dataset.row);
-            index = row * 3 + col;
-            if (board[index] !== board[" "]){
-                console.log('marked');
+            
+            // console.log(currentPlayer);
+            // console.log(currentPlayer);
+            
+            if (board[index] === "X" || board[index] === "O"){
+                console.log('taken');
                 return;
             }
-            board.splice(index, 1, mark);
+            // console.log(index);
+            // console.log(cell);
             
+            board.splice(index, 1, currentPlayer.mark);
             
+           
+
+            cell.innerHTML = currentPlayer.mark;
+            logic.setCurrentPlayer();
+           console.log(logic.getCurrentPlayer());
+            
+            // console.log(currentPlayer);
             
             
             
             console.log(board);
-        })
+            // console.log(getBoard(board));
+
+        
+        });
+        
+        // console.log(index);
+    };
+
+    main.appendChild(gameContainer);
+    // console.log(board);
+
+    return {board,getBoard}
+
+
+
+})();
+
+const gameLogic = (function() {
+    
+    var player1 = player('Player 1', 'X');
+    var player2 = player('Player 2', 'O');
+    var updateBoard = gameboard.getBoard;
+    var board = updateBoard(gameboard.board);
+    var currentPlayer = player1;
+    console.log(currentPlayer);
+  
+    // console.log(board);
+    const setCurrentPlayer = () => {
+    currentPlayer === player1 ? currentPlayer = player2 : currentPlayer =  player1;
+    // console.log('function ran');
+    // console.log('current player:' + ' ' + currentPlayer.mark);
     }
 
-
-    //grab fresh board
-    const getGameboard = () => createBoard();
-
-        return {getGameboard, setMarker}
-    
-}
-
-function displayController() {
-    //code here
-    //handle DOM elements 
-    GameLogic();
-    
-    
-    
-}
-
-function Player(name,  mark = 'X') {
-   
-   
-    return {name: name, mark: mark}
-
-    
-}
-
-// function Player2(name, mark = 'O'){
-//     return {name: name, mark: mark}
-// }
-
-
-function GameLogic(){
-    //code here
-    //BackEnd Logic Try not to use DOM elements or front end things
-    var game = Gameboard();
-    game.getGameboard();
-   var player1 = Player('Player 1');
-   var player2 = Player('Player 2', 'O');
-   var players = [player1, player2];
-   var currentPlayer = players[0];
-    
-   
-   const switchTurns = () => {
-    //code here 
-    if (currentPlayer === player1){
-        return console.log(players[1]);
-    } else {
-        return console.log(players[0]);
+    const getCurrentPlayer = () => {
+        return currentPlayer;
     }
-
-   }
-
    
-   game.setMarker(currentPlayer.mark, currentPlayer);
-   
-   
+  
 
-   
-   
-
-
-return {switchTurns:switchTurns}
     
+
+    return { currentPlayer , board, setCurrentPlayer, getCurrentPlayer }
+
+})();
+
+
+
+
+// const displayController = (function(){
+//     //code here will handle display elements
+//     // var board = gameboard.getBoard(gameboard.board);
+//     // var x = 'X';
+//     // var o = 'O';
+//     // let index = '';
+    
+    
+//     // for (let i = 0; i < board; i++) {
+//     //     const cell = document.getElementById(i);
+//     //     if (cell === board[i]){
+//     //         cell.innerHTML = board[i];
+//     //         console.log(cell);
+//     //     }
+        
+//     // }
+
+    
+
+    
+
    
-}
 
+    
 
-displayController();
-
-
+// })();
 
