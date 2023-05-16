@@ -48,6 +48,7 @@ const gameboard = (function() {
                 return;
             }
 
+           
         
             // console.log(index);
             // console.log(cell);
@@ -64,6 +65,7 @@ const gameboard = (function() {
             
             logic.setCurrentPlayer();
             logic.getCurrentPlayer();
+            logic.drawHandler();
            
     
             
@@ -94,9 +96,6 @@ const gameboard = (function() {
 
 const gameLogic = (function() {
     //* Function variables 
-    var xImage = new Image(150, 150);
-    xImage.classList.add('image');
-    xImage.src = './x.png';
     
 
     var player1 = player('Player 1', 'X');
@@ -104,6 +103,7 @@ const gameLogic = (function() {
     var updateBoard = gameboard.getBoard;
     var board = updateBoard(gameboard.board);
     var currentPlayer = player1;
+    var rounds = 9;
     
     
    
@@ -156,6 +156,7 @@ const gameLogic = (function() {
         
         
         winningConditions.forEach((item) =>{
+            
             // console.log(item);
         
 
@@ -173,6 +174,8 @@ const gameLogic = (function() {
            
          });
 
+         
+
         
          
 
@@ -183,12 +186,22 @@ const gameLogic = (function() {
 
     }
 
+    const drawHandler = () => {
+        rounds --;
+        console.log(rounds);
+        if (rounds === 0){
+            displayTie();
+            gameboard.disableBoard();
+        }
+     } 
+
+     
     
     
 
     
 
-    return { currentPlayer , setCurrentPlayer, getCurrentPlayer, displayTurn, checkWinner, displayWinner, displayTie }
+    return { currentPlayer , setCurrentPlayer, getCurrentPlayer, displayTurn, checkWinner, displayWinner, displayTie, drawHandler }
 
 })();
 
