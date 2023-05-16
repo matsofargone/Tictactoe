@@ -167,6 +167,15 @@ const gameLogic = (function() {
                 console.log(item);
                 playerMessage = displayWinner();
                 gameboard.disableBoard();
+                for (let i = 0; i < item.length; i++) {
+                    var highlightSquare = document.getElementById(item[i]);
+                    if (currentPlayer.mark === 'X') {
+                        highlightSquare.style.backgroundColor = 'green';
+                    } else {
+                        highlightSquare.style.backgroundColor = 'red';
+                    }
+                    
+                }
                } 
                 
             } 
