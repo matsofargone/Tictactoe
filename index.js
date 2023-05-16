@@ -55,7 +55,7 @@ const gameboard = (function() {
             
             
             board.splice(index, 1, currentPlayer.mark);
-            console.log(logic.checkWinner());
+            logic.checkWinner();
 
            
           
@@ -161,10 +161,10 @@ const gameLogic = (function() {
         
 
             if(board[item[0]] === currentPlayer.mark & board[item[1]] === currentPlayer.mark && board[item[2]] === currentPlayer.mark){
-               console.log(board[item[0]], board[item[1]], board[item[2]]);
+            //    console.log(board[item[0]], board[item[1]], board[item[2]]);
                if (item.length === 3){
-                console.log('winner');
-                console.log(item);
+                // console.log('winner');
+                // console.log(item);
                 playerMessage = displayWinner();
                 gameboard.disableBoard();
                 for (let i = 0; i < item.length; i++) {
@@ -197,7 +197,7 @@ const gameLogic = (function() {
 
     const drawHandler = () => {
         rounds --;
-        console.log(rounds);
+        // console.log(rounds);
         if (rounds === 0){
             displayTie();
             gameboard.disableBoard();
